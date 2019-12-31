@@ -1,4 +1,4 @@
-group 'com.example.platform_charset_conv'
+group 'pl.pr0gramista.platform_charset_conv'
 version '1.0-SNAPSHOT'
 
 buildscript {

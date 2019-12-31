@@ -1,4 +1,4 @@
-package com.example.platform_charset_conv
+package pl.pr0gramista.platform_charset_conv
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin
