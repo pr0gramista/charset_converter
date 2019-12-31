@@ -1,0 +1,91 @@
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:platform_charset_conv/platform_charset_conv.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String _decoded;
+  Uint8List _encoded;
+  bool _errored = false;
+
+  @override
+  void initState() {
+    super.initState();
+    decodeAndEncode();
+  }
+
+  Future<void> decodeAndEncode() async {
+    String decoded;
+    Uint8List encoded;
+
+    try {
+      encoded = await PlatformCharsetConverter.encode(
+          "TIS620", "สวัสดี"); // Hello in Thai
+      decoded = await PlatformCharsetConverter.decode(
+          "windows1250",
+          Uint8List.fromList(
+              [0x43, 0x7A, 0x65, 0x9C, 0xE6])); // Hello in Polish
+    } on PlatformException {
+      setState(() {
+        _errored = true;
+      });
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _decoded = decoded;
+      _encoded = encoded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('PlatformCharsetConverter example'),
+        ),
+        body: Center(
+            child: Column(children: [
+          if (_decoded != null)
+            Text("Decoded from Windows CP1250: " + _decoded),
+          if (_encoded != null)
+            Text("Encoded to TIS620: " + _encoded.join(", ")),
+          if (_errored) Text("Something went wrong :C"),
+          Expanded(
+              child: FutureBuilder(
+            future: PlatformCharsetConverter.availableCharsets(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final charsets = snapshot.data as List<String>;
+
+                return ListView.builder(
+                    itemCount: charsets.length,
+                    itemBuilder: (context, index) => Text(charsets[index]));
+              }
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+              return CircularProgressIndicator();
+            },
+          )),
+        ])),
+      ),
+    );
+  }
+}
