@@ -1,7 +1,7 @@
 # Charset converter
 Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
 
-Still package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422) and Dart's lack of support for many specific charset like GBK, Big5, Windows-125X or ISO-8859-XX.
+Still package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422) and [Dart](https://api.dartlang.org/stable/2.7.0/dart-convert/dart-convert-library.html)'s lack of support for many specific charset like GBK, Big5, Windows-125X or ISO-8859-XX.
 
 ## Usage
 #### Encoding

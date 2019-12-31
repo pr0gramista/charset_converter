@@ -1,8 +1,8 @@
 name: charset_converter
 description: Platform charset converter
 version: 0.0.1
-author: Bartosz Wiśniewski <kontakt@pr0gramista.pl>
 homepage: https://github.com/pr0gramista/charset_converter
+repository: https://github.com/pr0gramista/charset_converter
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
