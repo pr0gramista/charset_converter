@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftPlatformCharsetConvPlugin: NSObject, FlutterPlugin {
+public class SwiftCharsetConverterPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "platform_charset_conv", binaryMessenger: registrar.messenger())
-    let instance = SwiftPlatformCharsetConvPlugin()
+    let channel = FlutterMethodChannel(name: "charset_converter", binaryMessenger: registrar.messenger())
+    let instance = SwiftCharsetConverterPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

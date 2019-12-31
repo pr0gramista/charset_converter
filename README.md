@@ -1,17 +1,17 @@
-# Platform charset converter
-Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. However this comes with the dependency on the platform.
+# Charset converter
+Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
 
 Still package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422).
 
 ## Usage
 #### Encoding
 ```dart
-Uint8List encoded = await PlatformCharsetConverter.encode("windows1250", "Polish has óśćł");
+Uint8List encoded = await CharsetConverter.encode("windows1250", "Polish has óśćł");
 ```
 
 #### Decoding
 ```dart
-String decoded = await PlatformCharsetConverter.decode("windows1250",
+String decoded = await CharsetConverter.decode("windows1250",
     Uint8List.fromList([0x43, 0x7A, 0x65, 0x9C, 0xE6])); // Hello (Cześć) in Polish
 ```
 
@@ -19,7 +19,7 @@ String decoded = await PlatformCharsetConverter.decode("windows1250",
 Helpful if you don't know exact name of the charset.
 
 ```dart
-List<String> charsets = await PlatformCharsetConverter.availableCharsets();
+List<String> charsets = await CharsetConverter.availableCharsets();
 ```
 
 ## What's coming

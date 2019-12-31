@@ -1,4 +1,4 @@
-package pl.pr0gramista.platform_charset_conv
+package pl.pr0gramista.charset_converter
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -10,11 +10,11 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.nio.charset.Charset
 import java.nio.ByteBuffer
 
-/** PlatformCharsetConvPlugin */
-public class PlatformCharsetConvPlugin: FlutterPlugin, MethodCallHandler {
+/** CharsetConverterPlugin */
+public class CharsetConverterPlugin: FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "platform_charset_conv")
-    channel.setMethodCallHandler(PlatformCharsetConvPlugin());
+    val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "charset_converter")
+    channel.setMethodCallHandler(CharsetConverterPlugin());
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -29,8 +29,8 @@ public class PlatformCharsetConvPlugin: FlutterPlugin, MethodCallHandler {
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "platform_charset_conv")
-      channel.setMethodCallHandler(PlatformCharsetConvPlugin())
+      val channel = MethodChannel(registrar.messenger(), "charset_converter")
+      channel.setMethodCallHandler(CharsetConverterPlugin())
     }
   }
 

@@ -2,10 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:platform_charset_conv/platform_charset_conv.dart';
+import 'package:charset_converter/charset_converter.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('platform_charset_conv');
+  const MethodChannel channel = MethodChannel('charset_converter');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -27,18 +27,17 @@ void main() {
   });
 
   test('Encode', () async {
-    expect(await PlatformCharsetConverter.encode("utf8", "abc"), [97, 98, 99]);
+    expect(await CharsetConverter.encode("utf8", "abc"), [97, 98, 99]);
   });
 
   test('Decode', () async {
     expect(
-        await PlatformCharsetConverter.decode(
-            "utf8", Uint8List.fromList([97, 98, 99])),
+        await CharsetConverter.decode("utf8", Uint8List.fromList([97, 98, 99])),
         "abc");
   });
 
   test('Get available charsets', () async {
-    expect(await PlatformCharsetConverter.availableCharsets(),
+    expect(await CharsetConverter.availableCharsets(),
         ["windows1250", "Big5", "GBK"]);
   });
 }

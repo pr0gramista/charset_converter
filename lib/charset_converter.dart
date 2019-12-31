@@ -3,13 +3,16 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 
-/// Platform charset converter.
+/// Charset converter.
 ///
 /// Utilizes channels to use platform built-in charset converter.
-/// This śaves app package size, but sacrifice on performance.
-class PlatformCharsetConverter {
+/// Helps with Dart's lack of many charset codecs.
+/// This saves app package size, however does come with platform dependency.
+///
+/// This package does not include any external dependcies.
+class CharsetConverter {
   static const MethodChannel _channel =
-      const MethodChannel('platform_charset_conv');
+      const MethodChannel('charset_converter');
 
   /// Encodes [data] to given [charset] supported by the platform
   static Future<Uint8List> encode(String charset, String data) async {

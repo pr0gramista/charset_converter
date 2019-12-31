@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:platform_charset_conv/platform_charset_conv.dart';
+import 'package:charset_converter/charset_converter.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
     Uint8List encoded;
 
     try {
-      encoded = await PlatformCharsetConverter.encode(
-          "TIS620", "สวัสดี"); // Hello in Thai
-      decoded = await PlatformCharsetConverter.decode(
+      encoded =
+          await CharsetConverter.encode("TIS620", "สวัสดี"); // Hello in Thai
+      decoded = await CharsetConverter.decode(
           "windows1250",
           Uint8List.fromList(
               [0x43, 0x7A, 0x65, 0x9C, 0xE6])); // Hello in Polish
@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('PlatformCharsetConverter example'),
+          title: const Text('CharsetConverter example'),
         ),
         body: Center(
             child: Column(children: [
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
           if (_errored) Text("Something went wrong :C"),
           Expanded(
               child: FutureBuilder(
-            future: PlatformCharsetConverter.availableCharsets(),
+            future: CharsetConverter.availableCharsets(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final charsets = snapshot.data as List<String>;

@@ -1,5 +1,5 @@
-name: platform_charset_conv_example
-description: Demonstrates how to use the platform_charset_conv plugin.
+name: charset_converter_example
+description: Demonstrates how to use the charset_converter plugin.
 publish_to: "none"
 
 environment:
@@ -17,7 +17,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  platform_charset_conv:
+  charset_converter:
     path: ../
 
 # For information on the generic Dart part of this file, see the
