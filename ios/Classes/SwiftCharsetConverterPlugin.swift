@@ -68,6 +68,6 @@ public class SwiftCharsetConverterPlugin: NSObject, FlutterPlugin {
          }
          result(array)
     }
-    result("iOS " + UIDevice.current.systemVersion)
+    result(FlutterMethodNotImplemented)
   }
 }

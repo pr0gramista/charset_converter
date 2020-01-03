@@ -22,12 +22,18 @@ Helpful if you don't know exact name of the charset.
 List<String> charsets = await CharsetConverter.availableCharsets();
 ```
 
+**Warning:** Please note that even if charset is not present on the list, it still might work. This is because the function is not returning the full list of aliases, this is presented in the example of iOS - TIS620 does not appear on the list, but ISO 8859-11, which is actually an alias of TIS620 does.
+
+Please also note that names are platform specific and may be different.
+
 ## What's coming
-- iOS support
+- Single charset availability check
 - Stream API
 
 ## How does it work?
 Android comes with Java runtime, which has a built-in [Charset](https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html) class which has convenient `encode` and `decode` methods. All it's left to do is use channels to pass the data.
+
+iOS can also work with charsets with CoreFoundation CFString functions fe. `CFStringConvertIANACharSetNameToEncoding`. We can also easily encode and decode Strings with `init` and `data`. It is a little bit cumbersome since we have to convert the values and use ported C API.
 
 ## Contributing
 Feel free to create issues, fix bugs, add new functionalities even if you are not sure about. Everyone is welcome!
