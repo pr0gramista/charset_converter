@@ -6,6 +6,8 @@ Encode and decode charsets using platform built-in converter. This saves app pac
 Still package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422) and [Dart](https://api.dartlang.org/stable/2.7.0/dart-convert/dart-convert-library.html)'s lack of support for many specific charset like GBK, Big5, Windows-125X or ISO-8859-XX.
 
 ## Usage
+Checkout these snippets or [full example](/example).
+
 #### Encoding
 ```dart
 Uint8List encoded = await CharsetConverter.encode("windows1250", "Polish has óśćł");
