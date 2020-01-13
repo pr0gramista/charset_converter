@@ -1,3 +1,7 @@
+## 1.0.0
+* Stable release
+* Update example README
+
 ## 0.0.3
 
 * Single charset availability check
