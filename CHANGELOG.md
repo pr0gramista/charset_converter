@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Single charset availability check
+
 ## 0.0.2
 
 * iOS support
