@@ -1,4 +1,4 @@
-# Platform charset converter example
+# Charset converter example
 
 Demonstrates how to use the charset_converter plugin.
 
