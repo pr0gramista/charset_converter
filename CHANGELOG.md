@@ -1,3 +1,6 @@
+## 1.0.1
+* Fix links in README files
+
 ## 1.0.0
 * Stable release
 * Update example README
