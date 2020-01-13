@@ -30,8 +30,13 @@ Please also note that names are platform specific and may be different.
 
 #### Checking availability of charset
 ```dart
-bool isAvailable = CharsetConverter.checkAvailability("EUC-KR");
+bool isAvailable = await CharsetConverter.checkAvailability("EUC-KR");
 ```
+
+## Preview of what encoding you may find
+This can be helpful if you are not sure what you are looking for.
+* [Android](/CHARSETS-ANDROID)
+* [iOS](/CHARSETS-IOS)
 
 ## What's coming
 - Stream API
