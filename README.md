@@ -37,8 +37,8 @@ bool isAvailable = await CharsetConverter.checkAvailability("EUC-KR");
 
 ## Preview of what encoding you may find
 This can be helpful if you are not sure what you are looking for.
-* [Android](https://github.com/pr0gramista/charset_converter/CHARSETS-ANDROID)
-* [iOS](https://github.com/pr0gramista/charset_converter/CHARSETS-IOS)
+* [Android](https://github.com/pr0gramista/charset_converter/blob/master/CHARSETS-ANDROID)
+* [iOS](https://github.com/pr0gramista/charset_converter/blob/master/CHARSETS-IOS)
 
 ## What's coming
 - Stream API
