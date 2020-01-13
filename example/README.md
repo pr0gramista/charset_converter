@@ -9,5 +9,5 @@ The app is doing 3 things:
 * Checks if `EUC-KR` encoding is available - probably yes
 * Displays list of available charsets
 
-![Screenshot of the example on iOS](pr0gramista/charset_converter/blob/master/example/screenshot-ios.png?raw=true)
-![Screenshot of the example on Android](pr0gramista/charset_converter/blob/master/example/screenshot-android.png?raw=true)
+![Screenshot of the example on iOS](https://github.com/pr0gramista/charset_converter/blob/master/example/screenshot-ios.png?raw=true)
+![Screenshot of the example on Android](https://github.com/pr0gramista/charset_converter/blob/master/example/screenshot-android.png?raw=true)
