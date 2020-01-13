@@ -41,6 +41,15 @@ public class CharsetConverterPlugin: FlutterPlugin, MethodCallHandler {
       result.success(Charset.forName(call.argument("charset")).decode(ByteBuffer.wrap(call.argument("data"))).toString())
     } else if (call.method == "availableCharsets") {
       result.success(Charset.availableCharsets().keys.filterNotNull().toList())
+    } else if (call.method == "check") {
+      try {
+        val charset = Charset.forName(call.argument("charset"))
+
+        result.success(charset != null)
+      }
+      catch (e: Exception) {
+        result.success(false)
+      }
     } else {
       result.notImplemented()
     }

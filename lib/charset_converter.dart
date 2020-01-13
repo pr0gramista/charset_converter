@@ -36,6 +36,13 @@ class CharsetConverter {
     });
   }
 
+  /// Check if given [charset] is available
+  static Future<bool> checkAvailability(String charset) async {
+    assert(charset != null);
+
+    return await _channel.invokeMethod('check', {"charset": charset});
+  }
+
   /// Get list of available charsets
   static Future<List<String>> availableCharsets() async {
     final List<dynamic> result =

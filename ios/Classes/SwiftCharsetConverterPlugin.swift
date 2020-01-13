@@ -49,24 +49,35 @@ public class SwiftCharsetConverterPlugin: NSObject, FlutterPlugin {
         let output = NSString.init(data: data.data, encoding: encoding)
         
         result(output)
+    } else if (call.method == "check") {
+        // Those values are guaranteed by the Dart code
+        let args = call.arguments as! [String:Any]
+
+        let encodingName = args["charset"] as! NSString
+
+        let encodingCF = CFStringConvertIANACharSetNameToEncoding(encodingName)
+        if encodingCF == kCFStringEncodingInvalidId {
+          result(false)
+        }
+        result(true)
     } else if (call.method == "availableCharsets") {
-         var array : Array<String> = []
+        var array : Array<String> = []
         
-         var c = CFStringGetListOfAvailableEncodings()
-         while c?.pointee != kCFStringEncodingInvalidId {
-           let encoding = c?.pointee
-           if encoding != nil {
-             let charsetName = CFStringConvertEncodingToIANACharSetName(encoding!)
+        var c = CFStringGetListOfAvailableEncodings()
+        while c?.pointee != kCFStringEncodingInvalidId {
+          let encoding = c?.pointee
+          if encoding != nil {
+            let charsetName = CFStringConvertEncodingToIANACharSetName(encoding!)
             
-             if charsetName != nil {
-                 array.append(charsetName! as String)
-             }
-           } else {
-             print("Encoding is null")
-           }
-           c = c?.successor()
-         }
-         result(array)
+            if charsetName != nil {
+              array.append(charsetName! as String)
+            }
+          } else {
+            print("Encoding is null")
+          }
+          c = c?.successor()
+        }
+        result(array)
     }
     result(FlutterMethodNotImplemented)
   }

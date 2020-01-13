@@ -18,6 +18,8 @@ void main() {
         return String.fromCharCodes(methodCall.arguments["data"]);
       } else if (methodCall.method == "availableCharsets") {
         return ["windows1250", "Big5", "GBK"] as List<dynamic>;
+      } else if (methodCall.method == "check") {
+        return methodCall.arguments["charset"] == "utf8";
       }
     });
   });
@@ -39,5 +41,12 @@ void main() {
   test('Get available charsets', () async {
     expect(await CharsetConverter.availableCharsets(),
         ["windows1250", "Big5", "GBK"]);
+  });
+
+  test('Charset availability check', () async {
+    expect(await CharsetConverter.checkAvailability("utf8"), true);
+    expect(
+        await CharsetConverter.checkAvailability("i_should_not_be_available"),
+        false);
   });
 }

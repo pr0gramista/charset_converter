@@ -53,6 +53,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  /// Generates widget builder for [FutureBuilder] for given [charset]
+  Function _charsetAvailabilityView(String charset) {
+    return (context, snapshot) {
+      if (snapshot.hasData) {
+        bool isAvailable = snapshot.data as bool;
+
+        return Text("Is $charset available: " + isAvailable.toString());
+      }
+      return CircularProgressIndicator();
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,6 +79,13 @@ class _MyAppState extends State<MyApp> {
           if (_encoded != null)
             Text("Encoded to TIS620: " + _encoded.join(", ")),
           if (_errored) Text("Something went wrong :C"),
+          FutureBuilder(
+              future: CharsetConverter.checkAvailability(
+                  "i_should_not_be_available"),
+              builder: _charsetAvailabilityView("i_should_not_be_available")),
+          FutureBuilder(
+              future: CharsetConverter.checkAvailability("EUC-KR"),
+              builder: _charsetAvailabilityView("EUC-KR")),
           Expanded(
               child: FutureBuilder(
             future: CharsetConverter.availableCharsets(),
