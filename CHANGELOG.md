@@ -1,3 +1,6 @@
+## 1.0.2
+* Small improvements in documentation
+
 ## 1.0.1
 * Fix links in README files
 

@@ -3,10 +3,10 @@
 
 Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
 
-Still package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422) and [Dart](https://api.dartlang.org/stable/2.7.0/dart-convert/dart-convert-library.html)'s lack of support for many specific charset like GBK, Big5, Windows-125X or ISO-8859-XX.
+This package was originally made to help deal with [this StackOverflow question](https://stackoverflow.com/questions/59475607/how-to-print-asian-languages-to-a-thermal-printer-from-flutter/59531422#59531422) and [Dart](https://api.dartlang.org/stable/2.7.0/dart-convert/dart-convert-library.html)'s lack of support for many specific charset like GBK, Big5, Windows-125X or ISO-8859-XX.
 
 ## Usage
-Checkout these snippets or [full example](/example).
+Checkout these snippets or [full example](https://github.com/pr0gramista/charset_converter/tree/master/example).
 
 #### Encoding
 ```dart
@@ -26,7 +26,7 @@ Helpful if you don't know exact name of the charset.
 List<String> charsets = await CharsetConverter.availableCharsets();
 ```
 
-**Warning:** Please note that even if charset is not present on the list, it still might work. This is because the function is not returning the full list of aliases, this is presented in the example of iOS - TIS620 does not appear on the list, but ISO 8859-11, which is actually an alias of TIS620 does.
+**Warning:** Please note that even if charset is not present on the list, it still might work. This is because the function is not returning the full list of aliases, this is presented in the example of iOS - TIS620 does not appear on the list, but ISO 8859-11, which is actually an alias of TIS620 does. To check if charset is available use `CharsetConverter.checkAvailability`.
 
 Please also note that names are platform specific and may be different.
 
