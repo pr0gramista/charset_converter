@@ -1,0 +1,38 @@
+# Name of your workflow.
+name: "Run Flutter Driver tests"
+on: [push, pull_request]
+
+jobs:
+  drive:
+    strategy:
+      matrix:
+        device:
+          - "iPhone 11 Pro Max (13.1)"
+      fail-fast: false
+    runs-on: macos-latest
+    # Contains a sequence of tasks.
+    steps:
+      # A name for your step to display on GitHub.
+      - name: "List all simulators"
+        run: "xcrun instruments -s"
+      - name: "Start Simulator"
+        run: |
+          UDID=$(
+            xcrun instruments -s |
+            awk \
+              -F ' *[][]' \
+              -v 'device=${{ matrix.device }}' \
+              '$1 == device { print $2 }'
+          )
+          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      # The branch or tag ref that triggered the workflow will be
+      # checked out.
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v1
+      # Sets up a flutter environment.
+      # https://github.com/marketplace/actions/flutter-action
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable" # or: 'dev' or 'beta'
+      - name: "Run Flutter Driver tests"
+        run: "flutter drive --target=example/test_driver/app.dart"
