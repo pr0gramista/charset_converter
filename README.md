@@ -1,5 +1,6 @@
 # Charset converter
 [![pub package](https://img.shields.io/pub/v/charset_converter.svg)](https://pub.dartlang.org/packages/charset_converter)
+[![Tests status](https://github.com/pr0gramista/charset_converter/workflows/Tests/badge.svg)](https://github.com/pr0gramista/charset_converter/actions)
 
 Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
 
