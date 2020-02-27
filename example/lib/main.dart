@@ -59,7 +59,8 @@ class _MyAppState extends State<MyApp> {
       if (snapshot.hasData) {
         bool isAvailable = snapshot.data as bool;
 
-        return Text("Is $charset available: " + isAvailable.toString());
+        return Text("Is $charset available: " + isAvailable.toString(),
+            key: Key('charset_$charset'));
       }
       return CircularProgressIndicator();
     };
@@ -75,9 +76,11 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: Column(children: [
           if (_decoded != null)
-            Text("Decoded from Windows CP1250: " + _decoded),
+            Text("Decoded from Windows CP1250: " + _decoded,
+                key: Key('decoded')),
           if (_encoded != null)
-            Text("Encoded to TIS620: " + _encoded.join(", ")),
+            Text("Encoded to TIS620: " + _encoded.join(", "),
+                key: Key('encoded')),
           if (_errored) Text("Something went wrong :C"),
           FutureBuilder(
               future: CharsetConverter.checkAvailability(
