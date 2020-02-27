@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         device:
-          - "iPhone 11 Pro Max (13.1)"
+          - "iPhone 11 (13.3)"
       fail-fast: false
     runs-on: macos-latest
     # Contains a sequence of tasks.
