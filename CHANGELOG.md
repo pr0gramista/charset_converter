@@ -1,3 +1,8 @@
+## 1.0.3
+* Update pubspec.yaml to mark supported platforms
+* Add integration tests
+* Add GitHub Actions workflow to run unit and integration tests
+
 ## 1.0.2
 * Small improvements in documentation
 

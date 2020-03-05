@@ -1,6 +1,6 @@
 name: charset_converter
 description: Charset/encoding converter that uses underlying platform - no external dependencies
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/pr0gramista/charset_converter
 repository: https://github.com/pr0gramista/charset_converter
 
