@@ -51,3 +51,6 @@ iOS can also work with charsets with CoreFoundation CFString functions fe. `CFSt
 
 ## Contributing
 Feel free to create issues, fix bugs, add new functionalities even if you are not sure about. Everyone is welcome!
+
+## See also
+- [flutter_charset_detector](https://pub.dev/packages/flutter_charset_detector) for detecting text encoding
