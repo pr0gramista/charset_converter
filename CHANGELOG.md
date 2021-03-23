@@ -1,3 +1,6 @@
+## 2.0.0
+* Null safety
+
 ## 1.0.3
 * Update pubspec.yaml to mark supported platforms
 * Add integration tests
