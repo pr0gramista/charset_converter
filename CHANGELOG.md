@@ -1,5 +1,6 @@
 ## 2.0.0
 * Null safety
+* In case native implementation returns a null CharsetConversionError will be thrown
 
 ## 1.0.3
 * Update pubspec.yaml to mark supported platforms
