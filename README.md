@@ -42,7 +42,7 @@ This can be helpful if you are not sure what you are looking for.
 * [iOS](https://github.com/pr0gramista/charset_converter/blob/master/CHARSETS-IOS)
 
 ## What's coming
-- Stream API
+- Support for different platform
 
 ## How does it work?
 Android comes with Java runtime, which has a built-in [Charset](https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html) class which has convenient `encode` and `decode` methods. All it's left to do is use channels to pass the data.
