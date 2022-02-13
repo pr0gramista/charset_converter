@@ -25,3 +25,5 @@ flutter:
         pluginClass: CharsetConverterPlugin
       ios:
         pluginClass: CharsetConverterPlugin
+      windows:
+        pluginClass: CharsetConverterPlugin

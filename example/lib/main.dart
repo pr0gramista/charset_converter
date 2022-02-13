@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class _MyAppState extends State<MyApp> {
           "windows1250",
           Uint8List.fromList(
               [0x43, 0x7A, 0x65, 0x9C, 0xE6])); // Hello in Polish
-    } on PlatformException {
+    } on PlatformException catch (e) {
+      log(e.toString());
       setState(() {
         _errored = true;
       });

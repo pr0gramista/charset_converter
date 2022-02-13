@@ -43,6 +43,11 @@ class CharsetConverter {
         false,
       );
 
+    if (result is Int32List) {
+      print(result);
+      return String.fromCharCodes(result);
+    }
+
     return result;
   }
 
