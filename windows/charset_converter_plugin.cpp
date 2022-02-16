@@ -19,6 +19,8 @@
 
 using namespace std;
 
+// These are derrived from https://docs.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
+// We'll provide usable .NET labels for most charsets
 const std::map<std::string, unsigned int> labels{
     {"ibm037", 037},
     {"ibm437", 437},
@@ -126,7 +128,6 @@ const std::map<std::string, unsigned int> labels{
     {"x-cp20936", 20936},
     {"x-cp20949", 20949},
     {"cp1025", 21025},
-    // {7, "(deprecated)", 21},
     {"koi8-u", 21866},
     {"iso-8859-1", 28591},
     {"iso-8859-2", 28592},
@@ -172,6 +173,7 @@ const std::map<std::string, unsigned int> labels{
     {"x-iscii-pa", 57011},
     {"utf-7", 65000},
     {"utf-8", 65001},
+    // Aliases
     {"tis620", 874},
     {"iso-8859-11", 874},
     {"windows1250", 1250},
@@ -233,7 +235,7 @@ namespace
 
   CharsetConverterPlugin::~CharsetConverterPlugin() {}
 
-  string convertToMultiByte(wstring input, int codePage)
+  string convertToMultiByte(const wstring &input, const int &codePage)
   {
     int input_size = (int)input.size();
     int size_needed = WideCharToMultiByte(codePage, 0, input.data(), input_size, NULL, 0, NULL, NULL);
@@ -248,7 +250,7 @@ namespace
     return final_string;
   }
 
-  wstring convertFromMultiByte(string input, int codePage)
+  wstring convertFromMultiByte(const string &input, const int &codePage)
   {
     int input_size = (int)input.size();
     int size_needed = MultiByteToWideChar(codePage, 0, input.data(), input_size, NULL, 0);
@@ -263,12 +265,12 @@ namespace
     return final_string;
   }
 
-  string toUtf8(wstring input)
+  string toUtf8(const wstring &input)
   {
     return convertToMultiByte(input, CP_UTF8);
   }
 
-  wstring fromUtf8(string input)
+  wstring fromUtf8(const string &input)
   {
     return convertFromMultiByte(input, CP_UTF8);
   }
@@ -297,6 +299,7 @@ namespace
 
     if (label.empty())
     {
+      // Use Windows label when there isn't one in labels
       label = toUtf8(cpInfo.CodePageName);
     }
 
@@ -305,7 +308,9 @@ namespace
   }
 }
 
-optional<unsigned int> getCodePageIdForName(std::string name)
+// Returns ID of code page by parsing the name and performing lookup
+// The code page with returned ID might not exist.
+optional<unsigned int> getCodePageIdForName(const std::string &name)
 {
   try
   {
@@ -350,8 +355,8 @@ void CharsetConverterPlugin::HandleMethodCall(
   if (method_name.compare("encode") == 0)
   {
     const auto &map = std::get<flutter::EncodableMap>(*method_call.arguments());
-    auto charsetName = std::get<std::string>(map.at(flutter::EncodableValue("charset")));
-    auto data = std::get<std::string>(map.at(flutter::EncodableValue("data")));
+    const auto &charsetName = std::get<std::string>(map.at(flutter::EncodableValue("charset")));
+    const auto &data = std::get<std::string>(map.at(flutter::EncodableValue("data")));
 
     const auto codePageId = getCodePageIdForName(charsetName);
     if (!codePageId.has_value())
@@ -365,13 +370,6 @@ void CharsetConverterPlugin::HandleMethodCall(
     {
       result->Error("charset_not_found");
       return;
-    }
-
-    std::vector<char>
-        tmp;
-    for (auto i : data)
-    {
-      tmp.push_back((char)i);
     }
 
     try
@@ -415,7 +413,7 @@ void CharsetConverterPlugin::HandleMethodCall(
     }
 
     std::string input;
-    for (auto i : data)
+    for (const auto i : data)
     {
       input.push_back((char)i);
     }
