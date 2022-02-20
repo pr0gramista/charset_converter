@@ -3,9 +3,11 @@ description: Demonstrates how to use the charset_converter plugin.
 publish_to: "none"
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
+  super_form: 1.0.0
   flutter:
     sdk: flutter
 
