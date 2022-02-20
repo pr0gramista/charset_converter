@@ -7,9 +7,11 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:charset_converter/charset_converter.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -64,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         return Text("Is $charset available: " + isAvailable.toString(),
             key: Key('charset_$charset'));
       }
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     };
   }
 
@@ -79,11 +81,11 @@ class _MyAppState extends State<MyApp> {
             child: Column(children: [
           if (_decoded != null)
             Text("Decoded from Windows CP1250: " + _decoded,
-                key: Key('decoded')),
+                key: const Key('decoded')),
           if (_encoded != null)
             Text("Encoded to TIS620: " + _encoded.join(", "),
-                key: Key('encoded')),
-          if (_errored) Text("Something went wrong :C"),
+                key: const Key('encoded')),
+          if (_errored) const Text("Something went wrong :C"),
           FutureBuilder(
               future: CharsetConverter.checkAvailability(
                   "i_should_not_be_available"),
@@ -99,13 +101,14 @@ class _MyAppState extends State<MyApp> {
                 final charsets = snapshot.data as List<String>;
 
                 return ListView.builder(
+                    key: const Key("available_charsets"),
                     itemCount: charsets.length,
                     itemBuilder: (context, index) => Text(charsets[index]));
               }
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             },
           )),
         ])),

@@ -11,8 +11,7 @@ import 'package:flutter/services.dart';
 ///
 /// This package does not include any external dependcies.
 class CharsetConverter {
-  static const MethodChannel _channel =
-      const MethodChannel('charset_converter');
+  static const MethodChannel _channel = MethodChannel('charset_converter');
 
   /// Encodes [data] to given [charset] supported by the platform
   static Future<Uint8List> encode(String charset, String data) async {
@@ -21,11 +20,12 @@ class CharsetConverter {
       "data": data,
     });
 
-    if (result == null)
+    if (result == null) {
       throw CharsetConversionError(
         "Result of encoding was null which may indicate that native converter failed to encode your data",
         true,
       );
+    }
 
     return result;
   }
@@ -37,15 +37,11 @@ class CharsetConverter {
       "data": data,
     });
 
-    if (result == null)
+    if (result == null) {
       throw CharsetConversionError(
         "Result of decoding was null which may indicate that native converter failed to decode your data",
         false,
       );
-
-    if (result is Int32List) {
-      print(result);
-      return String.fromCharCodes(result);
     }
 
     return result;
