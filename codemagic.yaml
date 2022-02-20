@@ -1,0 +1,53 @@
+workflows:
+  tests-windows:
+    name: Windows
+    instance_type: windows_x2
+    max_build_duration: 30
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    working_directory: example
+    scripts:
+      - flutter test --verbose -d windows -r expanded integration_test
+    publishing:
+      email:
+        recipients:
+          - kontakt@pr0gramista.pl
+        notify:
+          success: false # To not receive a notification when a build succeeds
+
+  tests-mobile:
+    name: iOS and Android
+    instance_type: mac_mini
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    working_directory: example
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - flutter test -d iPhone -r expanded integration_test
+      - flutter emulators --launch emulator
+      - flutter test -d emulator-5554 -r expanded integration_test
+    publishing:
+      email:
+        recipients:
+          - kontakt@pr0gramista.pl
+        notify:
+          success: false # To not receive a notification when a build succeeds

@@ -1,27 +1,16 @@
+
 # Name of your workflow.
 name: "Tests"
-on: [push, pull_request]
-
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 jobs:
-  drive:
-    strategy:
-      matrix:
-        device:
-          - "iPhone 12 Simulator"
-      fail-fast: false
-    runs-on: macos-latest
+  build:
+    runs-on: ubuntu-latest
+    # Contains a sequence of tasks.
     steps:
-      # List all simulators so you can see what kind of devices are available
-      - name: "List all simulators"
-        run: "xcrun xctrace list devices"
-      # Start given simulator from the matrix
-      - name: "Start Simulator"
-        run: |
-          UDID=$(xcrun xctrace list devices | grep "${{ matrix.device }}" | python3 -c "import re
-          print(re.match(r'^.+\((.+)\)$', input()).group(1))")
-          xcrun simctl boot "${UDID:?No Simulator with this name found}"
-      # The branch or tag ref that triggered the workflow will be
-      # checked out.
       # https://github.com/actions/checkout
       - uses: actions/checkout@v1
       # Sets up a flutter environment.
@@ -29,7 +18,11 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable" # or: 'dev' or 'beta'
-      - name: "Run unit tests"
-        run: "flutter test"
-      - name: "Run integration tests"
-        run: "cd example; flutter test integration_test"
+      - name: Pub get
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Check format
+        run: flutter format --set-exit-if-changed .
+      - name: Run unit tests
+        run: flutter test --test-randomize-ordering-seed random
