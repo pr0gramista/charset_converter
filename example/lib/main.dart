@@ -146,54 +146,55 @@ class _MyAppState extends State<MyApp> {
                 ),
                 gap,
                 Builder(builder: (context) {
-                  return Row(
-                    children: [
-                      gap,
-                      ElevatedButton(
-                        onPressed: () {
-                          mode = ConversionMode.encode;
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            mode = ConversionMode.encode;
 
-                          SuperForm.of(context, listen: false).submit();
-                        },
-                        child: const Text("Encode"),
-                      ),
-                      gap,
-                      ElevatedButton(
-                        onPressed: () {
-                          mode = ConversionMode.decode;
+                            SuperForm.of(context, listen: false).submit();
+                          },
+                          child: const Text("Encode"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            mode = ConversionMode.decode;
 
-                          SuperForm.of(context, listen: false).submit();
-                        },
-                        child: const Text("Decode"),
-                      ),
-                      gap,
-                      ElevatedButton(
-                        onPressed: () {
-                          mode = ConversionMode.checkAvailability;
+                            SuperForm.of(context, listen: false).submit();
+                          },
+                          child: const Text("Decode"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            mode = ConversionMode.checkAvailability;
 
-                          SuperForm.of(context, listen: false).submit();
-                        },
-                        child: const Text("Check if available"),
-                      ),
-                      gap,
-                      ElevatedButton(
-                        onPressed: () async {
-                          setState(() {
-                            output = null;
-                            isLoading = true;
-                          });
+                            SuperForm.of(context, listen: false).submit();
+                          },
+                          child: const Text("Check if available"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            setState(() {
+                              output = null;
+                              isLoading = true;
+                            });
 
-                          final charsets =
-                              await CharsetConverter.availableCharsets();
+                            final charsets =
+                                await CharsetConverter.availableCharsets();
 
-                          setState(() {
-                            output = charsets.join("\n");
-                            isLoading = false;
-                          });
-                        },
-                        child: const Text("Get available charsets"),
-                      )
-                    ],
+                            setState(() {
+                              output = charsets.join("\n");
+                              isLoading = false;
+                            });
+                          },
+                          child: const Text("Get available charsets"),
+                        )
+                      ],
+                    ),
                   );
                 }),
                 gap,
