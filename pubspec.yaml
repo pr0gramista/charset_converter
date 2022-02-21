@@ -5,9 +5,8 @@ homepage: https://github.com/pr0gramista/charset_converter
 repository: https://github.com/pr0gramista/charset_converter
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
-  # Flutter versions prior to 1.10 did not support the flutter.plugin.platforms map.
-  flutter: ">=1.10.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
