@@ -1,3 +1,9 @@
+## 2.1.0
+* Windows support
+* Fix nullable return type of decoding
+* Fix trailing zeros in encoding output on Android
+* Better example and improved tests
+
 ## 2.0.0
 * Null safety
 * In case native implementation returns a null CharsetConversionError will be thrown
@@ -18,15 +24,12 @@
 * Update example README
 
 ## 0.0.3
-
 * Single charset availability check
 
 ## 0.0.2
-
 * iOS support
 
 ## 0.0.1
-
 * Encoding and decoding
 * Getting list of available charsets
 * Android support
