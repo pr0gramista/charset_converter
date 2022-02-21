@@ -36,7 +36,10 @@ public class CharsetConverterPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "encode") {
-      result.success(Charset.forName(call.argument("charset")).encode(call.argument<String>("data")).array())
+      val buffer = Charset.forName(call.argument("charset")).encode(call.argument<String>("data"))
+      val output = ByteArray(buffer.remaining());
+      buffer.get(output)
+      result.success(output)
     } else if (call.method == "decode") {
       result.success(Charset.forName(call.argument("charset")).decode(ByteBuffer.wrap(call.argument("data"))).toString())
     } else if (call.method == "availableCharsets") {

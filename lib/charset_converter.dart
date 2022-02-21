@@ -11,37 +11,42 @@ import 'package:flutter/services.dart';
 ///
 /// This package does not include any external dependcies.
 class CharsetConverter {
-  static const MethodChannel _channel =
-      const MethodChannel('charset_converter');
+  static const MethodChannel _channel = MethodChannel('charset_converter');
 
-  /// Encodes [data] to given [charset] supported by the platform
+  /// Encodes [data] to given [charset] supported by the platform.
+  ///
+  /// When encoding fails either [CharsetConversionError] or [PlatformException] is thrown.
   static Future<Uint8List> encode(String charset, String data) async {
     final result = await _channel.invokeMethod('encode', {
       "charset": charset,
       "data": data,
     });
 
-    if (result == null)
+    if (result == null) {
       throw CharsetConversionError(
         "Result of encoding was null which may indicate that native converter failed to encode your data",
         true,
       );
+    }
 
     return result;
   }
 
-  /// Decodes [data] into [String] by given [charset]
-  static Future<String?> decode(String charset, Uint8List data) async {
+  /// Decodes [data] into [String] by given [charset].
+  ///
+  /// When decoding fails either [CharsetConversionError] or [PlatformException] is thrown.
+  static Future<String> decode(String charset, Uint8List data) async {
     final result = await _channel.invokeMethod('decode', {
       "charset": charset,
       "data": data,
     });
 
-    if (result == null)
+    if (result == null) {
       throw CharsetConversionError(
         "Result of decoding was null which may indicate that native converter failed to decode your data",
         false,
       );
+    }
 
     return result;
   }

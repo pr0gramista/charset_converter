@@ -17,7 +17,7 @@ void main() {
       } else if (methodCall.method == "decode") {
         return String.fromCharCodes(methodCall.arguments["data"]);
       } else if (methodCall.method == "availableCharsets") {
-        return ["windows1250", "Big5", "GBK"] as List<dynamic>;
+        return ["windows1250", "Big5", "GBK"];
       } else if (methodCall.method == "check") {
         return methodCall.arguments["charset"] == "utf8";
       }
