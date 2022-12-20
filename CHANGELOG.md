@@ -1,3 +1,6 @@
+## 2.1.1
+* Upgrade Kotlin and Gradle versions (special thanks to [sgsm74](https://github.com/pr0gramista/charset_converter/pull/23) and [lvinci](https://github.com/pr0gramista/charset_converter/pull/22))
+
 ## 2.1.0
 * Windows support
 * Fix nullable return type of decoding
