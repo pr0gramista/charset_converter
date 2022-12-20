@@ -42,8 +42,10 @@ workflows:
     working_directory: example
     scripts:
       - flutter emulators --launch apple_ios_simulator
+      - sleep 5
       - flutter test -d iPhone -r expanded integration_test
       - flutter emulators --launch emulator
+      - sleep 5
       - flutter test -d emulator-5554 -r expanded integration_test
     publishing:
       email:
