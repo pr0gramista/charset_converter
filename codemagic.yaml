@@ -26,7 +26,7 @@ workflows:
 
   tests-mobile:
     name: iOS and Android
-    instance_type: mac_mini_m2
+    instance_type: mac_mini_m1
     max_build_duration: 60
     environment:
       flutter: stable
