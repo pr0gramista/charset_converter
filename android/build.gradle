@@ -25,6 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "pl.pr0gramista.charset_converter"
     compileSdkVersion 28
 
     sourceSets {
