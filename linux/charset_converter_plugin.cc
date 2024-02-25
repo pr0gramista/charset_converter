@@ -36,21 +36,24 @@ static void charset_converter_plugin_handle_method_call(
     gchar *inputBytes =
         g_strdup_printf("%s", fl_value_get_uint8_list(data));
     gsize strlen = fl_value_get_length(data);
-
     GString *toUse = g_string_new_len(inputBytes, strlen);
 
-    gsize written;
+    GIConv transferUnit;
+    if ((transferUnit = g_iconv_open(fl_value_to_string(charsetName), "UTF-8")) == (GIConv)-1)
+    {
+      response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", "Charset not found.", nullptr));
+      fl_method_call_respond(method_call, response, &error);
+      return;
+    }
 
-    gchar *toDecode = g_convert(
+    gsize written;
+    gchar *toDecode = g_convert_with_iconv(
         toUse->str,
         toUse->len,
-        fl_value_to_string(charsetName),
-        "UTF-8",
+        transferUnit,
         NULL,
         &written,
         &error);
-
-    g_message("%lu", written);
 
     if (toDecode == nullptr)
     {
@@ -60,8 +63,6 @@ static void charset_converter_plugin_handle_method_call(
     }
 
     GByteArray *array = g_byte_array_new_take((guint8 *)toDecode, written);
-    // g_byte_array_remove_index(array, array->len);
-
     g_autoptr(FlValue) result = fl_value_new_uint8_list(array->data, array->len - 1);
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
   }
@@ -79,7 +80,7 @@ static void charset_converter_plugin_handle_method_call(
     GIConv transferUnit;
     if ((transferUnit = g_iconv_open("UTF-8", fl_value_to_string(charsetName))) == (GIConv)-1)
     {
-      response = FL_METHOD_RESPONSE(fl_method_success_response_new(fl_value_new_bool(false)));
+      response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", "Charset not found.", nullptr));
       fl_method_call_respond(method_call, response, &error);
       return;
     }
@@ -119,11 +120,94 @@ static void charset_converter_plugin_handle_method_call(
       response = FL_METHOD_RESPONSE(fl_method_success_response_new(fl_value_new_bool(true)));
     }
   }
-  else if (strcmp(method, "avaliableCharsets") == 0)
+  else if (strcmp(method, "availableCharsets") == 0)
   {
-    // TODO: get a implement, I believe there it is.
+    // Iconv supports a range of charsets, use [iconv --list] for detail.
+    // Unfortunately there are too many, so I referred libiconv source code,
+    // and copied their "summary".
+    //
+    // Reference: libiconv/libcharset/include
+    const gchar *codelist[] = {
+        "ASCII, ANSI_X3.4-1968",
+        "ISO-8859-1 ",
+        "ISO-8859-2",
+        "ISO-8859-3",
+        "ISO-8859-4",
+        "ISO-8859-5",
+        "ISO-8859-6",
+        "ISO-8859-7",
+        "ISO-8859-8",
+        "ISO-8859-9",
+        "ISO-8859-13",
+        "ISO-8859-14",
+        "ISO-8859-15",
+        "KOI8-R",
+        "KOI8-U",
+        "KOI8-T",
+        "CP437",
+        "CP775",
+        "CP850",
+        "CP852",
+        "CP855",
+        "CP856",
+        "CP857",
+        "CP861",
+        "CP862",
+        "CP864",
+        "CP865",
+        "CP866",
+        "CP869",
+        "CP874",
+        "CP922",
+        "CP932",
+        "CP943",
+        "CP949",
+        "CP950",
+        "CP1046",
+        "CP1124",
+        "CP1125",
+        "CP1129",
+        "CP1131",
+        "CP1250",
+        "CP1251",
+        "CP1252",
+        "CP1253",
+        "CP1254",
+        "CP1255",
+        "CP1256",
+        "CP1257",
+        "GB2312",
+        "EUC-JP",
+        "EUC-KR",
+        "EUC-TW",
+        "BIG5",
+        "BIG5-HKSCS",
+        "GBK",
+        "GB18030",
+        "SHIFT_JIS",
+        "JOHAB",
+        "TIS-620",
+        "VISCII",
+        "TCVN5712-1",
+        "ARMSCII-8",
+        "GEORGIAN-PS",
+        "PT154",
+        "HP-ROMAN8 ",
+        "HP-ARABIC8",
+        "HP-GREEK8 ",
+        "HP-HEBREW8",
+        "HP-TURKISH8",
+        "HP-KANA8  ",
+        "DEC-KANJI",
+        "DEC-HANYU",
+        "UTF-8"};
+
     FlValue *list = fl_value_new_list();
-    fl_value_append(list, fl_value_new_string("Not available for Linux."));
+
+    for (int i = 0; i < sizeof(codelist) / sizeof(const gchar *); ++i)
+    {
+      fl_value_append(list, fl_value_new_string(codelist[i]));
+    }
 
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(list));
   }

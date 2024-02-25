@@ -16,7 +16,13 @@ final charsetTestCases = [
   ConversionTestCase("Big5", "中文abc", "164, 164, 164, 229, 97, 98, 99"),
   ConversionTestCase("Big5", "測試", "180, 250, 184, 213"),
   ConversionTestCase("EUC-KR", "김치", "177, 232, 196, 161"),
-  ConversionTestCase("windows1250", "Cześć", "67, 122, 101, 156, 230"),
+  ConversionTestCase("windows1250", "Cześć",
+      "67, 122, 101, 156, 230"), // failed on linux is predictable
+  ConversionTestCase("Windows-1250", "Cześć", "67, 122, 101, 156, 230"),
+  ConversionTestCase("GB2312", "测试", "178, 226, 202, 212"),
+  ConversionTestCase("GBK", "悯农", "195, 245, 197, 169"),
+  ConversionTestCase("GB18030", "Genesis 还有三个人。",
+      "71, 101, 110, 101, 115, 105, 115, 32, 187, 185, 211, 208, 200, 253, 184, 246, 200, 203, 161, 163"),
   ConversionTestCase("ISO-8859-7", "αβγδε", "225, 226, 227, 228, 229")
 ];
 
