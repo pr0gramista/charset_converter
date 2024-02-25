@@ -43,6 +43,7 @@ static void charset_converter_plugin_handle_method_call(
     {
       response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", "Charset not found.", nullptr));
       fl_method_call_respond(method_call, response, &error);
+      g_iconv_close(transferUnit);
       return;
     }
 
@@ -59,12 +60,14 @@ static void charset_converter_plugin_handle_method_call(
     {
       response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", error->message, nullptr));
       fl_method_call_respond(method_call, response, &error);
+      g_iconv_close(transferUnit);
       return;
     }
 
     GByteArray *array = g_byte_array_new_take((guint8 *)toDecode, written);
     g_autoptr(FlValue) result = fl_value_new_uint8_list(array->data, array->len - 1);
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
+    g_iconv_close(transferUnit);
   }
   else if (strcmp(method, "decode") == 0)
   {
@@ -82,6 +85,7 @@ static void charset_converter_plugin_handle_method_call(
     {
       response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", "Charset not found.", nullptr));
       fl_method_call_respond(method_call, response, &error);
+      g_iconv_close(transferUnit);
       return;
     }
 
@@ -97,6 +101,7 @@ static void charset_converter_plugin_handle_method_call(
     {
       response = FL_METHOD_RESPONSE(fl_method_error_response_new("error_id", error->message, nullptr));
       fl_method_call_respond(method_call, response, &error);
+      g_iconv_close(transferUnit);
       return;
     }
 
@@ -104,6 +109,7 @@ static void charset_converter_plugin_handle_method_call(
 
     g_autoptr(FlValue) result = fl_value_new_string(toReturn->str);
     response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
+    g_iconv_close(transferUnit);
   }
   else if (strcmp(method, "check") == 0)
   {
@@ -119,6 +125,7 @@ static void charset_converter_plugin_handle_method_call(
     {
       response = FL_METHOD_RESPONSE(fl_method_success_response_new(fl_value_new_bool(true)));
     }
+    g_iconv_close(iconv_cd);
   }
   else if (strcmp(method, "availableCharsets") == 0)
   {
