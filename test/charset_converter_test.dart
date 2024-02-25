@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:charset_converter/charset_converter.dart';
@@ -11,9 +13,18 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       if (methodCall.method == "encode") {
+        if (Platform.isLinux) {
+          return (methodCall.arguments["data"] as Uint8List).sublist(
+              0, (methodCall.arguments["data"] as Uint8List).length - 1);
+        }
         return Uint8List.fromList(
             (methodCall.arguments["data"] as String).codeUnits);
       } else if (methodCall.method == "decode") {
+        if (Platform.isLinux) {
+          return String.fromCharCodes(
+              (methodCall.arguments["data"] as Uint8List).sublist(
+                  0, (methodCall.arguments["data"] as Uint8List).length - 1));
+        }
         return String.fromCharCodes(methodCall.arguments["data"]);
       } else if (methodCall.method == "availableCharsets") {
         return ["windows1250", "Big5", "GBK"];

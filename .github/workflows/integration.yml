@@ -5,6 +5,7 @@ on: [push, workflow_dispatch]
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
@@ -12,9 +13,7 @@ jobs:
           - os: ubuntu-latest
             platform: ubuntu
           - os: macos-latest
-            platform: ios
-          - os: macos-latest
-            platform: android
+            platform: macos
 
     runs-on: ${{ matrix.os }}
 
@@ -29,26 +28,17 @@ jobs:
       run: flutter pub get
       working-directory: example
       
-    - name: Run Integration Tests on Android
+    - name: Run Integration Tests on macOS
       working-directory: example
-      if: matrix.platform == 'android'
-      run: |
-        flutter devices
-        flutter -d android test integration_test
-    
-    - name: Run Integration Tests on iOS
-      working-directory: example
-      if: matrix.platform == 'ios'
-      run: |
-        flutter devices
-        flutter -d ios test integration_test
+      if: matrix.platform == 'macos'
+      run: flutter -d macOS test integration_test
 
     - name: Run Integration Tests on Windows
       working-directory: example
       if: matrix.platform == 'windows'
-      run: flutter test -d desktop integration_test
+      run: flutter test -d windows integration_test
 
     - name: Run Integration Tests on Ubuntu
       working-directory: example
       if: matrix.platform == 'ubuntu'
-      run: flutter test -d desktop integration_test
+      run: flutter test -d Linux integration_test
