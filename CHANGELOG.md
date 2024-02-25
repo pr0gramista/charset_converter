@@ -1,3 +1,6 @@
+## 2.2.0
+* Linux support (thanks to [BenderBlog](https://github.com/pr0gramista/charset_converter/pull/38))
+
 ## 2.1.2
 * Fix missing namespace in Android project (thanks to [MemphisNguyen](https://github.com/pr0gramista/charset_converter/pull/36))
 
