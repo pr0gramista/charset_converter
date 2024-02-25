@@ -1,0 +1,49 @@
+
+# Name of your workflow.
+name: "Integration tests"
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+          - os: ubuntu-latest
+            platform: ubuntu
+          - os: macos-latest
+            platform: ios
+          - os: macos-latest
+            platform: android
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+    # Sets up a flutter environment.
+      # https://github.com/marketplace/actions/flutter-action
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: "stable" # or: 'dev' or 'beta'
+    - name: Pub get
+      run: flutter pub get
+      
+    - name: Run Integration Tests on Android
+      if: matrix.platform == 'android'
+      run: |
+        flutter devices
+        flutter -d android test integration_test
+    
+    - name: Run Integration Tests on iOS
+      if: matrix.platform == 'ios'
+      run: |
+        flutter devices
+        flutter -d ios test integration_test
+
+    - name: Run Integration Tests on Windows
+      if: matrix.platform == 'windows'
+      run: flutter test integration_test
+
+    - name: Run Integration Tests on Ubuntu
+      if: matrix.platform == 'ubuntu'
+      run: flutter test integration_test
