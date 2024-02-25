@@ -27,23 +27,28 @@ jobs:
         channel: "stable" # or: 'dev' or 'beta'
     - name: Pub get
       run: flutter pub get
+      working-directory: example
       
     - name: Run Integration Tests on Android
+      working-directory: example
       if: matrix.platform == 'android'
       run: |
         flutter devices
         flutter -d android test integration_test
     
     - name: Run Integration Tests on iOS
+      working-directory: example
       if: matrix.platform == 'ios'
       run: |
         flutter devices
         flutter -d ios test integration_test
 
     - name: Run Integration Tests on Windows
+      working-directory: example
       if: matrix.platform == 'windows'
       run: flutter test integration_test
 
     - name: Run Integration Tests on Ubuntu
+      working-directory: example
       if: matrix.platform == 'ubuntu'
       run: flutter test integration_test
