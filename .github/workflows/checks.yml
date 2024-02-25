@@ -1,6 +1,6 @@
 
 # Name of your workflow.
-name: "Tests"
+name: "Checks"
 on:
   push:
     branches:
