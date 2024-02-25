@@ -60,7 +60,7 @@ iOS can also work with charsets with CoreFoundation CFString functions fe. `CFSt
 
 Windows can use [MultiByteToWideChar](https://docs.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar) and [WideCharToMultiByte](https://docs.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte) from Win32.
 
-Linux can use [libIconv in GLib](https://docs.gtk.org/glib/struct.IConv.html). Since Flutter for Linux use GTK, it is pretty suitable. However, it accept a NUL terminated UTF-8 string (like C string end with`\0`), so in Dart side, String will be dealt by transfering into Uint8List, and add 0 at the end.
+Linux can use [libIconv in GLib](https://docs.gtk.org/glib/struct.IConv.html). Since Flutter for Linux use GTK, it is pretty suitable. However, it accept a NUL terminated UTF-8 string (like C string end with`\0`), so in Dart side, String will be dealt by transferring into Uint8List, and add 0 at the end.
 
 ## Contributing
 
