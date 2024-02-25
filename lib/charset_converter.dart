@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 
@@ -16,10 +18,24 @@ class CharsetConverter {
   ///
   /// When encoding fails either [CharsetConversionError] or [PlatformException] is thrown.
   static Future<Uint8List> encode(String charset, String data) async {
-    final result = await _channel.invokeMethod('encode', {
-      "charset": charset,
-      "data": data,
-    });
+    // ignore: prefer_typing_uninitialized_variables
+    late final result;
+
+    if (Platform.isLinux) {
+      /// I know it is silly, but GLib string (gchar *) is the same as C's,
+      /// the end of the string must be '\0'.
+      ///
+      /// I am bad at C, so I have to dealt it in Dart side:P
+      result = await _channel.invokeMethod('encode', {
+        "charset": charset,
+        "data": Uint8List.fromList([...utf8.encode(data), 0]),
+      });
+    } else {
+      result = await _channel.invokeMethod('encode', {
+        "charset": charset,
+        "data": data,
+      });
+    }
 
     if (result == null) {
       throw CharsetConversionError(
@@ -37,7 +53,7 @@ class CharsetConverter {
   static Future<String> decode(String charset, Uint8List data) async {
     final result = await _channel.invokeMethod('decode', {
       "charset": charset,
-      "data": data,
+      "data": Platform.isLinux ? Uint8List.fromList([...data, 0]) : data,
     });
 
     if (result == null) {

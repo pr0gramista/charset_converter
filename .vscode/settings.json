@@ -1,0 +1,9 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/example/linux",
+    "cmake.configureOnOpen": true,
+    "files.associations": {
+        "*.ipp": "cpp",
+        "chrono": "cpp",
+        "functional": "cpp"
+    }
+}
