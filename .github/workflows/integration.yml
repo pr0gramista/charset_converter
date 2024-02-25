@@ -46,9 +46,9 @@ jobs:
     - name: Run Integration Tests on Windows
       working-directory: example
       if: matrix.platform == 'windows'
-      run: flutter test integration_test
+      run: flutter test -d desktop integration_test
 
     - name: Run Integration Tests on Ubuntu
       working-directory: example
       if: matrix.platform == 'ubuntu'
-      run: flutter test integration_test
+      run: flutter test -d desktop integration_test
