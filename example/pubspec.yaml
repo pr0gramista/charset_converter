@@ -7,7 +7,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  super_form: 1.0.0
+  super_form: 1.0.3-beta
   flutter:
     sdk: flutter
 
