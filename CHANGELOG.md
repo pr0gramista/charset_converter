@@ -1,3 +1,6 @@
+## 2.2.1
+* Fix missing lStar resource for Android with Flutter 3.24 (thanks to [moffatman](https://github.com/pr0gramista/charset_converter/pull/41))
+
 ## 2.2.0
 * Linux support (thanks to [BenderBlog](https://github.com/pr0gramista/charset_converter/pull/38))
 
