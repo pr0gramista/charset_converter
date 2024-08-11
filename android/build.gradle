@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace "pl.pr0gramista.charset_converter"
-    compileSdkVersion 28
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
