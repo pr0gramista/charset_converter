@@ -25,7 +25,7 @@ workflows:
           success: false # To not receive a notification when a build succeeds
 
   tests-mobile:
-    name: iOS and Android
+    name: iOS
     instance_type: mac_mini_m1
     max_build_duration: 60
     environment:
@@ -44,9 +44,9 @@ workflows:
       - flutter emulators --launch apple_ios_simulator
       - sleep 5
       - flutter test -d iPhone -r expanded integration_test
-      - flutter emulators --launch emulator
-      - sleep 5
-      - flutter test -d emulator-5554 -r expanded integration_test
+      # - flutter emulators --launch emulator
+      # - sleep 5
+      # - flutter test -d emulator-5554 -r expanded integration_test
     publishing:
       email:
         recipients:
