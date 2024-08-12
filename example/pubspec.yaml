@@ -14,6 +14,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  charset_converter:
+    path: ../
 
 dev_dependencies:
   flutter_test:
@@ -21,9 +23,6 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_lints: ^1.0.4
-
-  charset_converter:
-    path: ../
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

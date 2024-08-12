@@ -19,10 +19,10 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   String? output;
   bool isLoading = false;
   ConversionMode mode = ConversionMode.encode;
@@ -82,11 +82,13 @@ class _MyAppState extends State<MyApp> {
                 }
               } on PlatformException catch (e) {
                 log(e.toString());
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Something went wrong"),
-                  ),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Something went wrong"),
+                    ),
+                  );
+                }
               } finally {
                 setState(() {
                   isLoading = false;
