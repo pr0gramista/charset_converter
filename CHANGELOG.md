@@ -1,3 +1,7 @@
+## 2.3.0
+* Upgrade Android project to support compilation with newer Java versions
+* Set minimum SDK version to 21
+
 ## 2.2.1
 * Fix missing lStar resource for Android with Flutter 3.24 (thanks to [moffatman](https://github.com/pr0gramista/charset_converter/pull/41))
 
