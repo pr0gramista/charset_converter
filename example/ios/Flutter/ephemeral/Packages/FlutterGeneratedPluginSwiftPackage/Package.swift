@@ -15,11 +15,16 @@ let package = Package(
         .library(name: "FlutterGeneratedPluginSwiftPackage", type: .static, targets: ["FlutterGeneratedPluginSwiftPackage"])
     ],
     dependencies: [
-        
+        .package(name: "integration_test", path: "../.packages/integration_test"),
+        .package(name: "charset_converter", path: "../.packages/charset_converter")
     ],
     targets: [
         .target(
-            name: "FlutterGeneratedPluginSwiftPackage"
+            name: "FlutterGeneratedPluginSwiftPackage",
+            dependencies: [
+                .product(name: "integration-test", package: "integration_test"),
+                .product(name: "charset-converter", package: "charset_converter")
+            ]
         )
     ]
 )
