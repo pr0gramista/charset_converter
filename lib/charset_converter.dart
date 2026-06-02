@@ -76,8 +76,9 @@ class CharsetConverter {
 
   /// Get list of available charsets
   static Future<List<String>> availableCharsets() async {
-    final List<dynamic>? result =
-        await _channel.invokeMethod('availableCharsets');
+    final List<dynamic>? result = await _channel.invokeMethod(
+      'availableCharsets',
+    );
 
     if (result == null) return [];
 

@@ -1,3 +1,7 @@
+## 2.4.0
+* Migrate to Swift Package Manager
+* Add macOS support
+
 ## 2.3.0
 * Upgrade Android project to support compilation with newer Java versions
 * Set minimum SDK version to 21
