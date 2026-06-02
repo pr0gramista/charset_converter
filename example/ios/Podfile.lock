@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  charset_converter: 07eea6e9f0ba0782bec381e25b2026d7bb061f6e
+  charset_converter: 17d26c1e7baebeb9d70181e22201608667fd791a
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
 

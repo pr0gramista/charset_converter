@@ -1,1 +1,0 @@
-../../../../ios/charset_converter/Sources/charset_converter/CharsetConverterPlugin.swift

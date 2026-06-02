@@ -13,9 +13,12 @@ Encode and decode charsets using platform built-in converter. This saves app pac
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Bartosz Wiśniewski' => 'kontakt@pr0gramista.pl' }
   s.source           = { :path => '.' }
-  s.source_files = 'charset_converter/Sources/charset_converter/**/*.swift'
+  # FFI-only plugin: Dart calls CoreFoundation directly via dart:ffi.
+  # A dummy source file is required so CocoaPods produces a valid pod target.
+  s.source_files = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
-  s.platform = :osx, '10.15'
+  s.platform = :osx, '10.14'
+  s.frameworks = 'CoreFoundation'
 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'

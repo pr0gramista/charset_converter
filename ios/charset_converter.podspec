@@ -10,12 +10,15 @@ Pod::Spec.new do |s|
 Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
                        DESC
   s.homepage         = 'http://github.com/pr0gramista/charset_converter'
-  s.license          = { :type => 'BSD' }
+  s.license          = { :file => '../LICENSE' }
   s.author           = { 'Bartosz Wiśniewski' => 'kontakt@pr0gramista.pl' }
-  s.source           = { :git => 'https://github.com/pr0gramista/charset_converter.git', :tag => s.version.to_s }
-  s.source_files = 'charset_converter/Sources/charset_converter/**/*.swift'
-  s.dependency 'Flutter'
-  s.platform = :ios, '13.0'
+  s.source           = { :path => '.' }
+  # FFI-only plugin: Dart calls CoreFoundation directly via dart:ffi.
+  # A dummy source file is required so CocoaPods produces a valid pod target.
+  s.source_files = 'Classes/**/*'
+  s.dependency 'FlutterMacOS'
+  s.platform = :osx, '10.14'
+  s.frameworks = 'CoreFoundation'
 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'

@@ -4,6 +4,8 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 
+import 'src/charset_converter_apple.dart';
+
 /// Charset converter.
 ///
 /// Utilizes channels to use platform built-in charset converter.
@@ -14,10 +16,23 @@ import 'package:flutter/services.dart';
 class CharsetConverter {
   static const MethodChannel _channel = MethodChannel('charset_converter');
 
+  static bool get _useFfi => Platform.isIOS || Platform.isMacOS;
+
   /// Encodes [data] to given [charset] supported by the platform.
   ///
   /// When encoding fails either [CharsetConversionError] or [PlatformException] is thrown.
   static Future<Uint8List> encode(String charset, String data) async {
+    if (_useFfi) {
+      final result = appleEncode(charset, data);
+      if (result == null) {
+        throw PlatformException(
+          code: 'missing_charset',
+          message: 'Charset could not be found',
+        );
+      }
+      return result;
+    }
+
     late final Uint8List? result;
 
     if (Platform.isLinux) {
@@ -48,6 +63,17 @@ class CharsetConverter {
   ///
   /// When decoding fails either [CharsetConversionError] or [PlatformException] is thrown.
   static Future<String> decode(String charset, Uint8List data) async {
+    if (_useFfi) {
+      final result = appleDecode(charset, data);
+      if (result == null) {
+        throw PlatformException(
+          code: 'missing_charset',
+          message: 'Charset could not be found',
+        );
+      }
+      return result;
+    }
+
     final result = await _channel.invokeMethod('decode', {
       "charset": charset,
       // A bit silly, but GLib string (gchar *) is the same as C's, the end of the string must be '\0'.
@@ -67,6 +93,10 @@ class CharsetConverter {
 
   /// Check if given [charset] is available
   static Future<bool> checkAvailability(String charset) async {
+    if (_useFfi) {
+      return appleCheckAvailability(charset);
+    }
+
     final result = await _channel.invokeMethod('check', {"charset": charset});
 
     if (result == null) return false;
@@ -76,6 +106,10 @@ class CharsetConverter {
 
   /// Get list of available charsets
   static Future<List<String>> availableCharsets() async {
+    if (_useFfi) {
+      return appleAvailableCharsets();
+    }
+
     final List<dynamic>? result = await _channel.invokeMethod(
       'availableCharsets',
     );
