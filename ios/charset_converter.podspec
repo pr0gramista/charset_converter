@@ -4,20 +4,19 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'charset_converter'
-  s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.version          = '2.4.0'
+  s.summary          = 'Charset/encoding converter that uses underlying platform'
   s.description      = <<-DESC
-A new flutter plugin project.
+Encode and decode charsets using platform built-in converter. This saves app package size as you don't need any external charset maps or whole libraries like iconv. This package doesn't even contain any Dart dependencies. However this comes with the dependency on the platform.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.homepage         = 'http://github.com/pr0gramista/charset_converter'
+  s.license          = { :type => 'BSD' }
+  s.author           = { 'Bartosz Wiśniewski' => 'kontakt@pr0gramista.pl' }
+  s.source           = { :git => 'https://github.com/pr0gramista/charset_converter.git', :tag => s.version.to_s }
+  s.source_files = 'charset_converter/Sources/charset_converter/**/*.swift'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '13.0'
 
-  # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
 end
