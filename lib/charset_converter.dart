@@ -50,9 +50,7 @@ class CharsetConverter {
   static Future<String> decode(String charset, Uint8List data) async {
     final result = await _channel.invokeMethod('decode', {
       "charset": charset,
-      // A bit silly, but GLib string (gchar *) is the same as C's, the end of the string must be '\0'.
-      // We are bad at C so we handle it here.
-      "data": Platform.isLinux ? Uint8List.fromList([...data, 0]) : data,
+      "data": data,
     });
 
     if (result == null) {
