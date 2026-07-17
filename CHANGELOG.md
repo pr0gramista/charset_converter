@@ -1,3 +1,7 @@
+## 2.5.0
+* Migrate to built-in Kotlin
+* Update the minimum supported SDK version to Flutter 3.44/Dart 3.12
+
 ## 2.4.0
 * Migrate to Swift Package Manager
 * Add macOS support
