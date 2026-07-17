@@ -1,12 +1,12 @@
 name: charset_converter
 description: Charset/encoding converter that uses underlying platform - no external dependencies
-version: 2.4.0
+version: 2.5.0
 homepage: https://github.com/pr0gramista/charset_converter
 repository: https://github.com/pr0gramista/charset_converter
 
 environment:
-  sdk: ^3.11.0
-  flutter: ">=3.41.0"
+  sdk: ^3.12.0
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:
