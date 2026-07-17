@@ -13,6 +13,12 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
           if (methodCall.method == "encode") {
+            if (Platform.isLinux) {
+              return (methodCall.arguments["data"] as Uint8List).sublist(
+                0,
+                (methodCall.arguments["data"] as Uint8List).length - 1,
+              );
+            }
             return Uint8List.fromList(
               (methodCall.arguments["data"] as String).codeUnits,
             );

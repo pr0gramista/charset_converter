@@ -20,10 +20,19 @@ class CharsetConverter {
   static Future<Uint8List> encode(String charset, String data) async {
     late final Uint8List? result;
 
-    result = await _channel.invokeMethod('encode', {
-      "charset": charset,
-      "data": data,
-    });
+    if (Platform.isLinux) {
+      // A bit silly, but GLib string (gchar *) is the same as C's, the end of the string must be '\0'.
+      // We are bad at C so we handle it here.
+      result = await _channel.invokeMethod('encode', {
+        "charset": charset,
+        "data": Uint8List.fromList([...utf8.encode(data), 0]),
+      });
+    } else {
+      result = await _channel.invokeMethod('encode', {
+        "charset": charset,
+        "data": data,
+      });
+    }
 
     if (result == null) {
       throw CharsetConversionError(
